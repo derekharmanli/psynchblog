@@ -15,13 +15,26 @@ const GetPostDetails = async (slug) => {
         author{
           name
           bio
+          website{
+            html
+          }
           photo {
             url
           }
         }
+        podcast{
+          url
+        }
+        importantLinks{
+          html
+        }
         createdAt
         slug
         content {
+          raw
+        }
+        dateOfPodcast
+        transcript{
           raw
         }
         categories {

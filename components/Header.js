@@ -13,13 +13,18 @@ const Header = () => {
   }, []);
   return (
     <div className ="container mx-auto px-10 mb-8">
-        <div className = "border-b w-full inline-block border-blue-400 py-8">
-            <div className = "md:float-left block">
-                <Link href="/">
-                    <span className = "cursor-pointer font-bold text-4xl text-white">
-                        Psynch
-                    </span>
-                </Link>
+        <div className = "w-full inline-block border-blue-400 py-8">
+            <div className="flex flex-col border-b">
+                <div className = "md:float-left block">
+                    <Link href="/">
+                        <span className = "cursor-pointer font-bold text-4xl text-white">
+                            Psynch
+                        </span>
+                    </Link>
+                </div>
+                <div className = "text-white">
+                    Your Favorite Psychiatry Podcasts Transcribed and Summarized
+                </div>
             </div>
             <div className = "hidden md:float-left md:contents">
                 {categories.map((category) =>
@@ -31,7 +36,9 @@ const Header = () => {
                 )}
 
             </div>
+       
         </div>
+        
     </div>
   )
 }
