@@ -27,6 +27,9 @@ const GetCategoryPost = async (slug) => {
             categories {
               name
               slug
+              picture {
+                url
+              }
             }
           }
         }

@@ -25,6 +25,9 @@ const GetPosts = async () => {
                     categories {
                       name
                       slug
+                      picture {
+                        url
+                      }
                     }
                   }
                 }

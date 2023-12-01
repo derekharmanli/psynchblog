@@ -9,6 +9,9 @@ const GetCategories = async () => {
         categories {
           name
           slug
+          picture {
+            url
+          }
         }
     }
   `;

@@ -25,12 +25,12 @@ const PostDetail = ({ post }) => {
 
   return (
     <>
-      <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
+      <div className="bg-white embossed rounded-lg lg:p-8 pb-12 mb-8">
         <div className="relative overflow-hidden shadow-md mb-6">
           <img
             src={post.featuredImage.url}
             alt=""
-            className="object-top h-full w-full object-cover  shadow-lg rounded-t-lg lg:rounded-lg"
+            className="object-top h-full w-full object-cover rounded-t-lg lg:rounded-lg"
           />
         </div>
         <div className="px-4 lg:px-0">
@@ -63,8 +63,8 @@ const PostDetail = ({ post }) => {
               <span className="align-middle">{moment(post.createdAt).format('MMM DD, YYYY')}</span>
             </div>
           </div>
-          <h1 className="text-3xl font-semibold">{post.title}</h1>
-          <h3 className="border-b-4 mb-4 font-semibold">{"... from "} {post.categories[0].name}</h3>
+          <h1 className="text-3xl mb-1 font-semibold text-shadow">{post.title}</h1>
+          <h3 className="border-b-4 mb-4 font-semibold text-xs">{"from "} <img alt= {post.categories[0].name} height = '20px' width= '20px' className="rounded-full inline"  src = {post.categories[0].picture.url}/> {post.categories[0].name}</h3>
 
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
@@ -81,6 +81,7 @@ const PostDetail = ({ post }) => {
           </div>
           {showMedia && (
             <div>
+              <h3 className="mb-2 font-semibold text-s"><img alt= {post.categories[0].name} height = '20px' width= '20px' className="rounded-full inline"  src = {post.categories[0].picture.url}/> {post.categories[0].name}</h3>
               <span className="underline">
                   {"Published Date"}
                 </span>

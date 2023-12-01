@@ -17,7 +17,7 @@ const Header = () => {
             <div className="flex flex-col border-b">
                 <div className = "md:float-left block">
                     <Link href="/">
-                        <span className = "cursor-pointer font-bold text-4xl text-white" title="Pronounced like cinch">
+                        <span className = "text-shadow cursor-pointer font-bold text-6xl text-white" title="Pronounced like cinch">
                             Psynch
                         </span>
                     </Link>

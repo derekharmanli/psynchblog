@@ -10,17 +10,19 @@ export default function Home({ posts }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 col-span-1">
           {posts.map((post) => (
-            <div className="shadow-md p-4 mb-4" key={post.title}>
+            <div className="embossed p-4 mb-4" key={post.title}>
               <PostCard post={post.node} />
             </div>
           ))}
         </div>
         <div className="lg:col-span-4 col-span-1">
-          <div className="shadow-md p-4 mb-4 lg:sticky relative top-8">
-            <PostWidget />
-          </div>
-          <div className="shadow-md p-4 mb-4 lg:sticky relative top-8">
-            <Categories />
+          <div className="lg:sticky relative top-8">
+              <div className = "embossed mb-4 p-4">
+                 <PostWidget />
+              </div>
+              <div className = "embossed">
+                <Categories />
+              </div>
           </div>
         </div>
       </div>

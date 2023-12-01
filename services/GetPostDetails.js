@@ -40,6 +40,9 @@ const GetPostDetails = async (slug) => {
         categories {
           name
           slug
+          picture {
+            url
+          }
         }
       }
     }

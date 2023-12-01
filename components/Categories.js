@@ -13,11 +13,20 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
-      <h3 className="text-xl mb-8 font-semibold border-b pb-4">Categories</h3>
+    <div className="bg-white rounded-lg p-8 pb-12 mb-8">
+      <h3 className="text-xl mb-8 font-semibold border-b-4 pb-1 text-shadow-md">Categories</h3>
       {categories.map((category, index) => (
         <Link key={index} href={`/category/${category.slug}`}>
-          <span className={`cursor-pointer block ${(index === categories.length - 1) ? 'border-b-0' : 'border-b'} pb-3 mb-3`}>{category.name}</span>
+          <div className={`cursor-pointer flex items-center ${(index === categories.length - 1) ? 'pb-3 mb-3' : 'border-b pb-3 mb-3'}`}>
+            {category.picture && (
+              <img
+                src={category.picture.url}
+                alt={category.name}
+                className="w-6 h-6 mr-2 rounded-full"
+              />
+            )}
+            <span>{category.name}</span>
+          </div>
         </Link>
       ))}
     </div>
