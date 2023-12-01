@@ -64,7 +64,7 @@ const PostDetail = ({ post }) => {
             </div>
           </div>
           <h1 className="text-3xl font-semibold">{post.title}</h1>
-          <h3 className="border-b-4 font-semibold">{"... from "} {post.categories[0].name}</h3>
+          <h3 className="border-b-4 mb-4 font-semibold">{"... from "} {post.categories[0].name}</h3>
 
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
