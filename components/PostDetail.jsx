@@ -82,9 +82,9 @@ const PostDetail = ({ post }) => {
           {showMedia && (
             <div>
               <span className="underline">
-                  {"Published Date:"}
+                  {"Published Date"}
                 </span>
-                <span>{" "}</span>
+                <span>{": "}</span>
                 <span>
                   {moment(post.dateOfPodcast).format('MMM DD, YYYY')}
                   </span>
