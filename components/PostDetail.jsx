@@ -6,9 +6,21 @@ import moment from 'moment';
 
 const PostDetail = ({ post }) => {
   const [showTranscript, setShowTranscript] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
+  const [showMedia, setShowMedia] = useState(false);
 
   const toggleTranscript = () => {
     setShowTranscript(!showTranscript);
+  };
+  const toggleSummary = () => {
+    setShowSummary(!showSummary);
+  };
+  const toggleLinks = () => {
+    setShowLinks(!showLinks);
+  };
+  const toggleMedia = () => {
+    setShowMedia(!showMedia);
   };
 
   return (
@@ -51,35 +63,88 @@ const PostDetail = ({ post }) => {
               <span className="align-middle">{moment(post.createdAt).format('MMM DD, YYYY')}</span>
             </div>
           </div>
-          <h1 className="text-3xl border-b-4 font-semibold">{post.title}</h1>
-        
-          <button
-            onClick={toggleTranscript}
-            className="bg-blue-500 mb-3 text-white px-4 border-b py-2 rounded-md mt-4"
-          >
-            {showTranscript ? 'Hide Transcript' : 'Show Transcript at Article End'}
-          </button>
-          <h2 className="text-xl border bg-indigo-500 p-2 text-white text-center font-semibold border-b mb-2">Referenced Podcast</h2>
-          <span className="underline">
-            {"Podcast Published Date:"}
-          </span>
-          <span>{" "}</span>
-          <span>
-            {moment(post.dateOfPodcast).format('MMM DD, YYYY')}
-            </span>
-          <div className = "mt-3">
-            <ReactAudioPlayer
-              src={post.podcast.url}
-              controls
-            />
+          <h1 className="text-3xl font-semibold">{post.title}</h1>
+          <h3 className="border-b-4 font-semibold">{"... from "} {post.categories[0].name}</h3>
+
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
+                  Referenced Media
+                  <button
+                    type="button"
+                    onClick={toggleMedia}
+                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                  >
+                    {showMedia ? '⌃' : '⌄'}
+                  </button>
+                </h2>
+
           </div>
-          <h2 className="text-xl border bg-indigo-500 p-2 text-white text-center font-semibold border-b mb-2">Important Links</h2>
-          <div className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{parse(post.importantLinks.html)}</div>
-          <h2 className="text-xl border bg-indigo-500 p-2 text-white text-center font-semibold border-b mb-2">Rough Summary</h2>
-          <RichText content={post.content.raw.children} />
+          {showMedia && (
+            <div>
+              <span className="underline">
+                  {"Published Date:"}
+                </span>
+                <span>{" "}</span>
+                <span>
+                  {moment(post.dateOfPodcast).format('MMM DD, YYYY')}
+                  </span>
+                <div className = "mt-3">
+                  <ReactAudioPlayer
+                    src={post.podcast.url}
+                    controls
+                  />
+                </div>
+            </div>
+          )}
+         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
+                  Important Links
+                  <button
+                    type="button"
+                    onClick={toggleLinks}
+                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                  >
+                    {showLinks ? '⌃' : '⌄'}
+                  </button>
+                </h2>
+
+          </div>
+          {showLinks && (
+            <div className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{parse(post.importantLinks.html)}</div>
+          )}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
+                  Rough Summary
+                  <button
+                    type="button"
+                    onClick={toggleSummary}
+                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                  >
+                    {showSummary ? '⌃' : '⌄'}
+                  </button>
+                </h2>
+
+          </div>
+          {showSummary && (
+            <div className="mt-4">
+              <RichText content={post.content.raw.children} />
+            </div>
+          )}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
+                  Rough Transcript 
+                  <button
+                    type="button"
+                    onClick={toggleTranscript}
+                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                  >
+                    {showTranscript ? '⌃' : '⌄'}
+                  </button>
+                </h2>
+
+          </div>
           {showTranscript && (
             <div className="mt-4">
-              <h2 className="text-xl bg-indigo-500 p-2 text-white text-center border font-semibold mb-2">Rough Transcript</h2>
               <RichText content={post.transcript.raw.children} />
             </div>
           )}
