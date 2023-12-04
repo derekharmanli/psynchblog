@@ -26,8 +26,4 @@ const GetFeaturedPosts = async () => {
   return result.posts;
 };
 
-
-
-
-
 export default GetFeaturedPosts
