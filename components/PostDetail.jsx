@@ -111,7 +111,7 @@ const PostDetail = ({ post }) => {
 
           </div>
           {showLinks && (
-            <div className={`text-${post.importantLinks && post.importantLinks.html ? 'blue-600 hover:text-blue-800 visited:text-purple-600' : 'black'}`}>
+            <div className={`${post.importantLinks && post.importantLinks.html ? 'underline text-blue-600 hover:text-blue-800 visited:text-purple-600' : 'text-black'}`}>
               {post.importantLinks && post.importantLinks.html ? parse(post.importantLinks.html) : 'No important links available.'}
             </div>
           )}
