@@ -111,7 +111,9 @@ const PostDetail = ({ post }) => {
 
           </div>
           {showLinks && (
-            <div className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">{parse(post.importantLinks.html)}</div>
+            <div className={`text-${post.importantLinks && post.importantLinks.html ? 'blue-600 hover:text-blue-800 visited:text-purple-600' : 'black'}`}>
+              {post.importantLinks && post.importantLinks.html ? parse(post.importantLinks.html) : 'No important links available.'}
+            </div>
           )}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
