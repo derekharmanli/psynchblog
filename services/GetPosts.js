@@ -62,7 +62,7 @@ const GetPosts = async () => {
 
   while (hasMorePages) {
     const { edges, pageInfo } = await fetchPosts(afterCursor);
-    const posts = edges.map((edge) => edge.node);
+    const posts = edges;
     
     allPosts = [...allPosts, ...posts];
     hasMorePages = pageInfo.hasNextPage;
