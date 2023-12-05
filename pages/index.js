@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { PostCard, PostWidget, Categories } from '../components';
-import { FeaturedPosts } from '../sections/index';
+import { FeaturedPosts } from '../public/sections/index';
 import { GetPosts } from '../services';
 
 export default function Home({ posts }) {
@@ -11,7 +11,7 @@ export default function Home({ posts }) {
         <div className="lg:col-span-8 col-span-1">
           {posts.map((post) => (
             <div className="embossed p-4 mb-4" key={post.title}>
-              <PostCard post={post.node} />
+              <PostCard post={post} />
             </div>
           ))}
         </div>

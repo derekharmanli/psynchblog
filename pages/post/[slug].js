@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader } from '../../components';
 import { GetPosts, GetPostDetails } from '../../services';
-import { AdjacentPosts } from '../../sections/index';
+import { AdjacentPosts } from '../../public/sections/index';
 
 const PostDetails = ({ post }) => {
   const router = useRouter();
