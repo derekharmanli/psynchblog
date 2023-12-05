@@ -11,7 +11,7 @@ export default function Home({ posts }) {
         <div className="lg:col-span-8 col-span-1">
           {posts.map((post) => (
             <div className="embossed p-4 mb-4" key={post.title}>
-              <PostCard post={post} />
+              <PostCard post={post.node} />
             </div>
           ))}
         </div>
