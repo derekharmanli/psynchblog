@@ -129,7 +129,7 @@ const PostDetail = ({ post }) => {
 
           </div>
           {showSummary && (
-            <div className="mt-4">
+            <div className="mt-4 mb-4">
               <RichText content={post.content.raw.children} />
             </div>
           )}
@@ -147,7 +147,7 @@ const PostDetail = ({ post }) => {
 
           </div>
           {showTranscript && (
-            <div className="mt-4">
+            <div className="mt-4 mb-4">
               <RichText content={post.transcript.raw.children} />
             </div>
           )}
