@@ -27,11 +27,13 @@ const PostCard = ({post}) => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className= "lg:ml-2 ml-10">{moment(post.createdAt).format('MMM DD, YYYY')}</span>
+            <span className= "lg:ml-2 ml-12">{moment(post.createdAt).format('MMM DD, YYYY')}</span>
           </div>
           <div className="flex items-center lg:justify-center">
             <img alt={post.categories[0].name} height="30px" width="30px" className="rounded-full" src={post.categories[0].picture.url} />
-            <span className="lg:ml-2 ml-1">{post.categories[0].name}</span>
+            <span className={`ml-${post.categories[0].name.length > 10 ? '10' : '1'} lg:ml-2`}>
+                {post.categories[0].name}
+              </span>
           </div>
         </div>
 
