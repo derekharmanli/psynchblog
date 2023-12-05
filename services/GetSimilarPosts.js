@@ -5,7 +5,7 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 const GetSimilarPosts = async (categories, slug) => {
   const query = gql`
-    query GetPostDetails($slug: String!, $categories: [String!]) {
+    query GetSimilarPosts($slug: String!, $categories: [String!]) {
       posts(
         where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
         last: 3
