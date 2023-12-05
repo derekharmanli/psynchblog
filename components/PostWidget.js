@@ -25,8 +25,8 @@ const PostWidget = ({categories, slug}) => {
           <Link href={`/post/${post.slug}`}>
             <img
               alt={post.title}
-              height="60px"
-              width="60px"
+              height="50px"
+              width="50px"
               className="align-middle rounded-full"
               src={post.featuredImage.url}
             />
