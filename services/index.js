@@ -7,4 +7,5 @@ export { default as GetComments} from './GetComments';
 export { default as GetFeaturedPosts} from './GetFeaturedPosts';
 export { default as GetPosts} from './GetPosts';
 export { default as GetRecentPosts} from './GetRecentPosts';
+export { default as GetLatestPosts} from './GetLatestPosts';
 export { default as SubmitComment} from './SubmitComment';

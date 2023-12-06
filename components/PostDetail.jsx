@@ -112,7 +112,7 @@ const PostDetail = ({ post }) => {
           </div>
           {showLinks && (
             <div className={`${post.importantLinks && post.importantLinks.html ? 'underline text-blue-600 hover:text-blue-800 visited:text-purple-600' : 'text-black'}`}>
-              {post.importantLinks && post.importantLinks.html.length > 1 ? parse(post.importantLinks.html) : 'No important links available.'}
+              {post.importantLinks && post.importantLinks.html ? parse(post.importantLinks.html) : 'No important links available.'}
             </div>
           )}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
