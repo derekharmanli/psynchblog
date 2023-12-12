@@ -30,6 +30,9 @@ const GetPostDetails = async (slug) => {
         }
         createdAt
         slug
+        keyPoints {
+          raw
+        }
         content {
           raw
         }

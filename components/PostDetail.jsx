@@ -9,6 +9,8 @@ const PostDetail = ({ post }) => {
   const [showSummary, setShowSummary] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [showMedia, setShowMedia] = useState(false);
+  const [showPoints, setShowPoints] = useState(false);
+
 
   const toggleTranscript = () => {
     setShowTranscript(!showTranscript);
@@ -21,6 +23,9 @@ const PostDetail = ({ post }) => {
   };
   const toggleMedia = () => {
     setShowMedia(!showMedia);
+  };
+  const togglePoints = () => {
+    setShowPoints(!showPoints);
   };
 
   return (
@@ -66,6 +71,22 @@ const PostDetail = ({ post }) => {
           <h1 className="text-3xl mb-1 font-semibold text-shadow">{post.title}</h1>
           <h3 className="border-b-4 mb-4 font-semibold text-xs">{"from "} <img alt= {post.categories[0].name} height = '20px' width= '20px' className="rounded-full inline"  src = {post.categories[0].picture.url}/> {post.categories[0].name}</h3>
 
+
+          <div>
+            {post.keyPoints && (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2" style={{ width: '100%' }}>
+                  Key Points
+                </h2>
+              </div>
+            )}
+
+            {post.keyPoints && (
+              <div className="mt-4 mb-4">
+                <RichText content={post.keyPoints.raw.children} />
+              </div>
+            )}
+          </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
                   Referenced Media
