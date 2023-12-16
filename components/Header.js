@@ -16,7 +16,7 @@ const Header = () => {
         <div className = "w-full inline-block border-blue-400 py-8">
             <div className="flex flex-col border-b">
                 <div className = "md:float-left block">
-                    <Link href="/">
+                    <Link href="/podcasts">
                         <span className = "text-shadow cursor-pointer font-bold text-6xl text-white" title="Pronounced like cinch">
                             Psynch
                         </span>
@@ -24,7 +24,7 @@ const Header = () => {
                 </div>
                 <div className ="flex lg:flex-row flex-col justify-between">
                     <div className = "text-white italic lg:mb-0 mb-4">
-                        Your Favorite Psychiatry Media Transcribed and Summarized
+                        Your Favorite Psychiatry Podcasts Transcribed and Summarized
                     </div>
                     <div className ="flex flex-row">
                         <Link className="mr-5" href="/about">
@@ -32,9 +32,14 @@ const Header = () => {
                                 About
                             </div>
                         </Link>
-                        <Link href="/disclaimer">
+                        <Link className="mr-5" href="/disclaimer">
                             <div className = "text-white font-semibold">
                                 Disclaimer
+                            </div>
+                        </Link>
+                        <Link href="/">
+                            <div className = "text-white font-semibold">
+                                Home
                             </div>
                         </Link>
                     </div>
