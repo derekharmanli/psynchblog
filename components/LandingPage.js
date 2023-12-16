@@ -52,14 +52,14 @@ export default function LandingPage() {
             alt=""
             width={0.08 * logoSize}
             height={0.08 * logoSize}
-            style={{ position: 'absolute', top: '0', right: '-2rem' }}
+            style={{ position: 'absolute', top: '1rem', right: '-2rem' }}
           />
       </button>
       </h1>
       
       <div className="flex flex-row">
         <Link className="text-white text-xl" href="/podcasts">
-          <div>Podcasts</div>
+          Podcasts
         </Link>
       </div>
 

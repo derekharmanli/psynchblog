@@ -12,4 +12,3 @@ export { default as CommentsForm } from './CommentsForm';
 export { default as Loader } from './Loader';
 export { default as LandingPage} from './LandingPage';
 export { default as LoadingIndicator} from './LoadingIndicator';
-export { default as Pagination} from './Pagination';
