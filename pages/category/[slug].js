@@ -6,7 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { GetCategories, GetCategoryPost } from '../../services';
 import { PostCard, Categories, Loader, Layout } from '../../components';
 import Head from 'next/head';
-const CategoryPost = ({ initialPosts }) => {
+const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
   const router = useRouter();
   const [posts, setPosts] = useState(initialPosts.edges);
   const [hasMore, setHasMore] = useState(initialPosts.pageInfo.hasNextPage);
