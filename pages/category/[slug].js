@@ -12,7 +12,9 @@ const CategoryPost = ({ initialPosts }) => {
   const [hasMore, setHasMore] = useState(initialPosts.pageInfo.hasNextPage);
   const [afterCursor, setAfterCursor] = useState(initialPosts.pageInfo.endCursor);
   const [showTopBtn, setShowTopBtn] = useState(false);
-
+  if (!initialPosts || !initialPosts.edges) {
+    return <div>No posts available</div>;
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +60,7 @@ const CategoryPost = ({ initialPosts }) => {
               dataLength={posts.length}
               next={fetchMorePosts}
               hasMore={hasMore}
-              loader={<div className="loader-spinner"></div>}
+              loader={<Loader />}
             >
               {posts.map(({ node }) => (
                 <div className="embossed p-4 mb-4" key={node.title}>
@@ -83,10 +85,17 @@ const CategoryPost = ({ initialPosts }) => {
   );
 };
 export async function getStaticProps({ params }) {
-  const initialPosts = await GetCategoryPost(params.slug, 10);
-  return {
-    props: { initialPosts },
-  };
+  try {
+    const initialPosts = await GetCategoryPost(params.slug, 10);
+    return {
+      props: { initialPosts: initialPosts || { edges: [], pageInfo: {} } },
+    };
+  } catch (error) {
+    console.error('Error fetching initial posts:', error);
+    return {
+      props: { initialPosts: { edges: [], pageInfo: {} } },
+    };
+  }
 }
 
 export async function getStaticPaths() {
@@ -96,5 +105,4 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-
 export default CategoryPost;
