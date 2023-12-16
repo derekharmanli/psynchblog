@@ -36,6 +36,8 @@ export default function Home() {
   };
   return (
     <div className="landing-container">
+      <div className="fixed top-0 left-0 right-0 bg-pink-900 text-white text-center py-2">
+      </div>
       <img
         src="/logo-transformed-modified.png"
         alt="Psynch Logo"
@@ -62,7 +64,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="status-bar">
+      <div className="fixed bottom-0 left-0 right-0 bg-pink-900 text-white text-center py-2">
         <span>&#169; Psynch 2023. All Rights Reserved. Courtesy of <a href="https://www.linkedin.com/in/derekharmanli" target="_blank" rel="noopener noreferrer">Derek Harmanli</a></span>
       </div>
     </div>

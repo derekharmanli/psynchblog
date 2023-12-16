@@ -88,17 +88,10 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
   );
 };
 export async function getStaticProps({ params }) {
-  try {
-    const initialPosts = await GetCategoryPost(params.slug, 10);
-    return {
-      props: { initialPosts: initialPosts || { edges: [], pageInfo: {} } },
-    };
-  } catch (error) {
-    console.error('Error fetching initial posts:', error);
-    return {
-      props: { initialPosts: { edges: [], pageInfo: {} } },
-    };
-  }
+  const initialPosts = await GetCategoryPost(params.slug, 10);
+  return {
+    props: { initialPosts },
+  };
 }
 
 export async function getStaticPaths() {
