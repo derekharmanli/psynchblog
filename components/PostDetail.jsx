@@ -18,12 +18,12 @@ const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
   return (
     <div className="modal-backdrop">
       <div className="modal">
-        <h2 className="text-xl font-semibold">Disclaimer and Important Information</h2>
-        <p>- This is not medical advice. As this is AI generated content, there may be incorrect information.</p>
+        <h2 className="text-2xl font-semibold">Disclaimer and Important Information</h2>
+        <p>- This is NOT medical advice. As this is AI generated content, there may be incorrect information.</p>
         <p>- The Key Points section is intended to be a 1-minute reading summary.</p>
-        <p>- The Rough Summary Section is intended to be a 5-minute reading summary.</p>
-        <p>- The Rough Transcript will likely have the most errors and is AI&apos;s best attempt to transcribe the media.</p>
-        <p className= "mt-2 font-semibold">To make this modal pop up again, even if you select the do not open again below, press Ctrl-M on PC/Mac and/or shake your mobile device</p>
+        <p>- The Summary Section is intended to be a 5-minute reading summary.</p>
+        <p>- The Transcript will likely have the most errors and is AI&apos;s best attempt to transcribe the media.</p>
+        <p className= "mt-2 font-semibold">To make this modal pop up again, even if you select the do not open again below, press Ctrl-M on PC/Mac and/or double tap the screen on your mobile device</p>
         <div className="mt-4">
           <input
             type="checkbox"
@@ -45,6 +45,7 @@ const PostDetail = ({ post }) => {
   const [showMedia, setShowMedia] = useState(false);
   const [showPoints, setShowPoints] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [lastTap, setLastTap] = useState(null);
 
   useEffect(() => {
     checkModalSetting();
@@ -53,7 +54,7 @@ const PostDetail = ({ post }) => {
     return () => {
       cleanupEventListeners();
     };
-  }, [post]);
+  }, [post, lastTap]);
 
   const checkModalSetting = () => {
     const modalSetting = localStorage.getItem('hideModal');
@@ -62,12 +63,14 @@ const PostDetail = ({ post }) => {
 
   const setupEventListeners = () => {
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('devicemotion', handleShake);
+    document.addEventListener('touchend', handleDoubleTap);
+
   };
 
   const cleanupEventListeners = () => {
     window.removeEventListener('keydown', handleKeyDown);
-    window.removeEventListener('devicemotion', handleShake);
+    document.removeEventListener('touchend', handleDoubleTap);
+
   };
 
   const handleKeyDown = (event) => {
@@ -76,32 +79,14 @@ const PostDetail = ({ post }) => {
       localStorage.setItem('hideModal', 'false');
     }
   };
-
-  const shakeSensitivity = 15;
-  let lastX, lastY, lastZ;
-
-  const handleShake = (event) => {
-    const { acceleration } = event;
-    if (!acceleration) return;
-
-    const currentX = acceleration.x;
-    const currentY = acceleration.y;
-    const currentZ = acceleration.z;
-
-    if (lastX !== null && lastY !== null && lastZ !== null) {
-      const deltaX = Math.abs(lastX - currentX);
-      const deltaY = Math.abs(lastY - currentY);
-      const deltaZ = Math.abs(lastZ - currentZ);
-
-      if (deltaX > shakeSensitivity || deltaY > shakeSensitivity || deltaZ > shakeSensitivity) {
-        setIsModalOpen(true);
-        localStorage.setItem('hideModal', 'false');
-      }
+  const handleDoubleTap = () => {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if (lastTap && tapLength < 500 && tapLength > 0) {
+      setIsModalOpen(true);
+      localStorage.setItem('hideModal', 'false');
     }
-
-    lastX = currentX;
-    lastY = currentY;
-    lastZ = currentZ;
+    setLastTap(currentTime);
   };
 
   const handleDontShowAgain = () => {
@@ -171,18 +156,17 @@ const PostDetail = ({ post }) => {
 
 
          
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <div className="flex flex-row">
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
-                  Referenced Media
-                  <button
-                    type="button"
-                    onClick={toggleMedia}
-                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
-                  >
-                    {showMedia ? '⌃' : '⌄'}
-                  </button>
-                </h2>
-
+                  Media 
+            </h2>
+            <button
+                type="button"
+                onClick={toggleMedia}
+                className="transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white mb-2 px-4 py-2 cursor-pointer"
+              >
+                {showMedia ? '⌃' : '⌄'}
+              </button>
           </div>
           {showMedia && (
             <div>
@@ -202,18 +186,18 @@ const PostDetail = ({ post }) => {
                 </div>
             </div>
           )}
-         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <div className="flex flex-row">
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
-                  Important Links
-                  <button
+                  Links
+                  
+                </h2>
+                <button
                     type="button"
                     onClick={toggleLinks}
-                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                    className="ml-1 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 mb-2 py-2 cursor-pointer"
                   >
                     {showLinks ? '⌃' : '⌄'}
                   </button>
-                </h2>
-
           </div>
           {showLinks && (
             <div className={`${post.importantLinks && post.importantLinks.html ? 'underline text-blue-600 hover:text-blue-800 visited:text-purple-600' : 'text-black'}`}>
@@ -222,17 +206,18 @@ const PostDetail = ({ post }) => {
           )}
            <div>
             {post.keyPoints && (
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+             <div className="flex flex-row">
                 <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2" style={{ width: '100%' }}>
                   Key Points
-                  <button
+                  
+                </h2>
+                <button
                     type="button"
                     onClick={togglePoints}
-                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                    className="mb-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
                   >
-                    {showMedia ? '⌃' : '⌄'}
+                    {showPoints ? '⌃' : '⌄'}
                   </button>
-                </h2>
               </div>
             )}
 
@@ -242,36 +227,36 @@ const PostDetail = ({ post }) => {
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <div className="flex flex-row">
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
-                  Rough Summary
-                  <button
+                  Summary
+                  
+                </h2>
+                <button
                     type="button"
                     onClick={toggleSummary}
-                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                    className="mb-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
                   >
                     {showSummary ? '⌃' : '⌄'}
-                  </button>
-                </h2>
-
+                  </button>   
           </div>
           {showSummary && (
             <div className="mt-4 mb-4">
               <RichText content={post.content.raw.children} />
             </div>
           )}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <div className="flex flex-row">
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
-                  Rough Transcript 
-                  <button
+                  Transcript 
+                  
+                </h2>
+                <button
                     type="button"
                     onClick={toggleTranscript}
-                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                    className="mb-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
                   >
                     {showTranscript ? '⌃' : '⌄'}
                   </button>
-                </h2>
-
           </div>
           {showTranscript && (
             <div className="mt-4 mb-4">
