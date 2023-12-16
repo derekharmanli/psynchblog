@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
         <p>- This is not medical advice. As this is AI generated content, there may be incorrect information.</p>
         <p>- The Key Points section is intended to be a 1-minute reading summary.</p>
         <p>- The Rough Summary Section is intended to be a 5-minute reading summary.</p>
-        <p>- The Rough Transcript will likely have the most errors and is AI's best attempt to transcribe the media.</p>
+        <p>- The Rough Transcript will likely have the most errors and is AI&apos;s best attempt to transcribe the media.</p>
         <p className= "mt-2 font-semibold">To make this modal pop up again, even if you select the do not open again below, press Ctrl-M on PC/Mac and/or shake your mobile device</p>
         <div className="mt-4">
           <input
