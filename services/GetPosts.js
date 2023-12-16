@@ -4,14 +4,12 @@ import { request, gql } from 'graphql-request';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-const GetPosts = async () => {
-  const pageSize = 3; // Adjust the page size as needed
 
-  const fetchPosts = async (after) => {
-    const query = gql`
-      query GetPosts($pageSize: Int!, $after: String) {
-        postsConnection(first: $pageSize, after: $after) {
-          edges {
+const GetPosts = async (pageSize = 10, afterCursor = null) => {
+  const query = gql`
+    query GetPosts($pageSize: Int!, $after: String) {
+      postsConnection(first: $pageSize, after: $after, orderBy: createdAt_DESC) {
+         edges {
             cursor
             node {
               author {
@@ -40,38 +38,17 @@ const GetPosts = async () => {
           }
           pageInfo {
             hasNextPage
-            hasPreviousPage
-            startCursor
             endCursor
-            pageSize
           }
         }
       }
     `;
-
     const variables = {
       pageSize,
-      after,
+      after: afterCursor,
     };
-
+  
     const result = await request(graphqlAPI, query, variables);
-    return result.postsConnection;
-  };
-
-  let allPosts = [];
-  let hasMorePages = true;
-  let afterCursor = null;
-
-  while (hasMorePages) {
-    const { edges, pageInfo } = await fetchPosts(afterCursor);
-    const posts = edges;
-    
-    allPosts = [...allPosts, ...posts];
-    hasMorePages = pageInfo.hasNextPage;
-    afterCursor = pageInfo.endCursor;
-  }
-
-  return allPosts.reverse();
-};
-
+    return result.postsConnection; 
+ }
 export default GetPosts;

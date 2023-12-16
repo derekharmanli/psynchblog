@@ -146,3 +146,22 @@ a {
   right: 0;
   bottom: 0;
 }
+
+/* Loader CSS */
+.loader-spinner {
+  border: 5px solid rgba(255, 255, 255, 0.2); /* Light grey border */
+  border-top: 5px solid #3498db; /* Blue color for the top part */
+  border-radius: 50%;
+  width: 80px; /* Increased size */
+  height: 80px; /* Increased size */
+  animation: spin 1s linear infinite;
+
+  /* Centering the spinner */
+  position: relative;
+  margin: 20px auto; /* Centered horizontally, with some margin at the top and bottom */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Head from 'next/head'
 
 export default function Home() {
   const [windowWidth, setWindowWidth] = useState(0);
@@ -37,9 +36,6 @@ export default function Home() {
   };
   return (
     <div className="landing-container">
-      <Head>
-        <title>Psynch</title>
-      </Head>
       <img
         src="/logo-transformed-modified.png"
         alt="Psynch Logo"
