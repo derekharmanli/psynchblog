@@ -12,25 +12,28 @@ const CategoryPost = ({ initialPosts }) => {
   const [hasMore, setHasMore] = useState(initialPosts.pageInfo.hasNextPage);
   const [afterCursor, setAfterCursor] = useState(initialPosts.pageInfo.endCursor);
   const [showTopBtn, setShowTopBtn] = useState(false);
-  if (!initialPosts || !initialPosts.edges) {
-    return <div>No posts available</div>;
-  }
+ 
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowTopBtn(window.scrollY > 300);
+      if (window.scrollY > 300) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
 
   if (router.isFallback) {
     return <Loader />;
   }
-
+  if (!initialPosts || !initialPosts.edges) {
+    return <div>No posts available</div>;
+  }
 
   const fetchMorePosts = async () => {
     if (!hasMore) return;
