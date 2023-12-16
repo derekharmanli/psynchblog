@@ -3,6 +3,7 @@ import { RichText } from '@graphcms/rich-text-react-renderer';
 import ReactAudioPlayer from 'react-audio-player';
 import parse from 'html-react-parser';
 import moment from 'moment';
+import Head from 'next/head';
 const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
@@ -21,18 +22,19 @@ const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
         <h2 className="text-2xl font-semibold">Disclaimer and Important Information</h2>
         <p>- This is NOT medical advice. As this is AI generated content, there may be incorrect information.</p>
         <p>- The Key Points section is intended to be a 1-minute reading summary.</p>
-        -<p>- The Summary Section is intended to be a 5minute reading summary.</p>
+        <p>- The Summary Section is intended to be a 5minute reading summary.</p>
         <p>- The Transcript will likely have the most errors and is AI&apos;s best attempt to transcribe the media.</p>
         <p className= "mt-2 font-semibold">To make this modal pop up again, even if you select the do not open again below, press Ctrl-M on PC/Mac and/or double tap the screen on your mobile device</p>
         <div className="mt-4">
-          <input
-            type="checkbox"
-            checked={dontShowAgain}
-            onChange={(e) => setDontShowAgain(e.target.checked)}
-          />
-          <label>Do not open again</label>
-        </div>
-       
+    <input
+        type="checkbox"
+        id="dontShowCheckbox"
+        checked={dontShowAgain}
+        onChange={(e) => setDontShowAgain(e.target.checked)}
+      />
+      <label htmlFor="dontShowCheckbox">Do not open again</label> 
+  </div>
+        
         <button onClick={handleClose} className="modal-close-btn">X</button>
       </div>
     </div>
@@ -113,6 +115,9 @@ const PostDetail = ({ post }) => {
 
   return (
     <>
+    <Head>
+        <title>Psynch Podcasts</title>
+      </Head>
       <div className="bg-white embossed rounded-lg lg:p-8 pb-12 mb-8">
         <div className="relative overflow-hidden shadow-md mb-6">
           <img
