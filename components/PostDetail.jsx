@@ -1,16 +1,112 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import ReactAudioPlayer from 'react-audio-player';
 import parse from 'html-react-parser';
 import moment from 'moment';
+const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
+  const [dontShowAgain, setDontShowAgain] = useState(false);
 
+  const handleClose = () => {
+    if (dontShowAgain) {
+      onDontShowAgain();
+    }
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal-backdrop">
+      <div className="modal">
+        <h2 className="text-xl font-semibold">Disclaimer and Important Information</h2>
+        <p>- This is not medical advice. As this is AI generated content, there may be incorrect information.</p>
+        <p>- The Key Points section is intended to be a 1-minute reading summary.</p>
+        <p>- The Rough Summary Section is intended to be a 5-minute reading summary.</p>
+        <p>- The Rough Transcript will likely have the most errors and is AI's best attempt to transcribe the media.</p>
+        <p className= "mt-2 font-semibold">To make this modal pop up again, even if you select the do not open again below, press Ctrl-M on PC/Mac and/or shake your mobile device</p>
+        <div className="mt-4">
+          <input
+            type="checkbox"
+            checked={dontShowAgain}
+            onChange={(e) => setDontShowAgain(e.target.checked)}
+          />
+          <label>Do not open again</label>
+        </div>
+       
+        <button onClick={handleClose} className="modal-close-btn">X</button>
+      </div>
+    </div>
+  );
+};
 const PostDetail = ({ post }) => {
   const [showTranscript, setShowTranscript] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [showMedia, setShowMedia] = useState(false);
   const [showPoints, setShowPoints] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
+  useEffect(() => {
+    checkModalSetting();
+    setupEventListeners();
+
+    return () => {
+      cleanupEventListeners();
+    };
+  }, [post]);
+
+  const checkModalSetting = () => {
+    const modalSetting = localStorage.getItem('hideModal');
+    setIsModalOpen(modalSetting !== 'true');
+  };
+
+  const setupEventListeners = () => {
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('devicemotion', handleShake);
+  };
+
+  const cleanupEventListeners = () => {
+    window.removeEventListener('keydown', handleKeyDown);
+    window.removeEventListener('devicemotion', handleShake);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.ctrlKey && event.key === 'm') {
+      setIsModalOpen(true);
+      localStorage.setItem('hideModal', 'false');
+    }
+  };
+
+  const shakeSensitivity = 15;
+  let lastX, lastY, lastZ;
+
+  const handleShake = (event) => {
+    const { acceleration } = event;
+    if (!acceleration) return;
+
+    const currentX = acceleration.x;
+    const currentY = acceleration.y;
+    const currentZ = acceleration.z;
+
+    if (lastX !== null && lastY !== null && lastZ !== null) {
+      const deltaX = Math.abs(lastX - currentX);
+      const deltaY = Math.abs(lastY - currentY);
+      const deltaZ = Math.abs(lastZ - currentZ);
+
+      if (deltaX > shakeSensitivity || deltaY > shakeSensitivity || deltaZ > shakeSensitivity) {
+        setIsModalOpen(true);
+        localStorage.setItem('hideModal', 'false');
+      }
+    }
+
+    lastX = currentX;
+    lastY = currentY;
+    lastZ = currentZ;
+  };
+
+  const handleDontShowAgain = () => {
+    localStorage.setItem('hideModal', 'true');
+  };
 
   const toggleTranscript = () => {
     setShowTranscript(!showTranscript);
@@ -27,6 +123,8 @@ const PostDetail = ({ post }) => {
   const togglePoints = () => {
     setShowPoints(!showPoints);
   };
+
+  
 
   return (
     <>
@@ -72,21 +170,7 @@ const PostDetail = ({ post }) => {
           <h3 className="border-b-4 mb-4 font-semibold text-xs">{"from "} <img alt= {post.categories[0].name} height = '20px' width= '20px' className="rounded-full inline"  src = {post.categories[0].picture.url}/> {post.categories[0].name}</h3>
 
 
-          <div>
-            {post.keyPoints && (
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2" style={{ width: '100%' }}>
-                  Key Points
-                </h2>
-              </div>
-            )}
-
-            {post.keyPoints && (
-              <div className="mt-4 mb-4">
-                <RichText content={post.keyPoints.raw.children} />
-              </div>
-            )}
-          </div>
+         
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
                   Referenced Media
@@ -136,6 +220,28 @@ const PostDetail = ({ post }) => {
               {post.importantLinks && post.importantLinks.html ? parse(post.importantLinks.html) : 'No important links available.'}
             </div>
           )}
+           <div>
+            {post.keyPoints && (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2" style={{ width: '100%' }}>
+                  Key Points
+                  <button
+                    type="button"
+                    onClick={togglePoints}
+                    className="ml-2 transition duration-500 ease hover:bg-indigo-900 bg-pink-600 text-lg text-center font-medium rounded-full text-white px-4 py-2 cursor-pointer"
+                  >
+                    {showMedia ? '⌃' : '⌄'}
+                  </button>
+                </h2>
+              </div>
+            )}
+
+            {showPoints && post.keyPoints && (
+              <div className="mt-4 mb-4">
+                <RichText content={post.keyPoints.raw.children} />
+              </div>
+            )}
+          </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <h2 className="text-xl border bg-pink-600 p-2 rounded-full text-white text-center font-semibold border-b mb-2"  style={{ width: '100%' }}>
                   Rough Summary
@@ -176,6 +282,11 @@ const PostDetail = ({ post }) => {
           
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onDontShowAgain={handleDontShowAgain}
+      />
     </>
   );
 };

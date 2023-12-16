@@ -26,11 +26,18 @@ const Header = () => {
                     <div className = "text-white italic lg:mb-0 mb-4">
                         Your Favorite Psychiatry Media Transcribed and Summarized
                     </div>
-                    <Link href="/about">
-                        <div className = "text-white font-semibold">
-                            About
-                        </div>
-                    </Link>
+                    <div className ="flex flex-row">
+                        <Link className="mr-5" href="/about">
+                            <div className = "text-white font-semibold">
+                                About
+                            </div>
+                        </Link>
+                        <Link href="/disclaimer">
+                            <div className = "text-white font-semibold">
+                                Disclaimer
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </div>
             <div className = "hidden md:float-left md:contents">
