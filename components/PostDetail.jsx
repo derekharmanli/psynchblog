@@ -21,7 +21,7 @@ const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
         <h2 className="text-2xl font-semibold">Disclaimer and Important Information</h2>
         <p>- This is NOT medical advice. As this is AI generated content, there may be incorrect information.</p>
         <p>- The Key Points section is intended to be a 1-minute reading summary.</p>
-        <p>- The Summary Section is intended to be a 5-minute reading summary.</p>
+        -<p>- The Summary Section is intended to be a 5minute reading summary.</p>
         <p>- The Transcript will likely have the most errors and is AI&apos;s best attempt to transcribe the media.</p>
         <p className= "mt-2 font-semibold">To make this modal pop up again, even if you select the do not open again below, press Ctrl-M on PC/Mac and/or double tap the screen on your mobile device</p>
         <div className="mt-4">
