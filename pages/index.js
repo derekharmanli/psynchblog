@@ -25,6 +25,8 @@ export default function Home() {
   // Calculate the logo size and text size based on window width and height
   const logoSize = Math.min(0.8 * windowWidth, 0.8 * windowHeight, 700);
   const textSize = Math.min(0.05 * windowWidth + 40, 200);
+  const isSmallScreen = windowWidth < 640; // Define the breakpoint for a small screen.
+
   const handlePlayButtonClick = () => {
     const audio = new Audio('/cinch.mp3');
     if (!isPlaying) {
@@ -35,7 +37,7 @@ export default function Home() {
     setIsPlaying(!isPlaying);
   };
   return (
-    <div className="landing-container">
+    <div className={` ${isSmallScreen ? 'landing-container-small' : 'landing-container'}`}>
       <div className="fixed top-0 left-0 right-0 bg-pink-900 text-white text-center py-2">
       </div>
       <img

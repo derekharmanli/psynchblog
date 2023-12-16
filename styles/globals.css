@@ -127,7 +127,14 @@ a {
   justify-content: center;
   height: 100vh;
 }
-
+.landing-container-small{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #111822;
+  padding-top: 100px;
+  height: 100vh;
+}
 .podcasts-link {
   padding: 10px 20px;
   background-color: #111822;
