@@ -13,24 +13,22 @@ const CategoryPost = ({ initialPosts }) => {
   const [afterCursor, setAfterCursor] = useState(initialPosts.pageInfo.endCursor);
   const [showTopBtn, setShowTopBtn] = useState(false);
 
-  if (router.isFallback) {
-    return <Loader />;
-  }
-
-  const handleScroll = () => {
-    if (window.scrollY > 300) {
-      setShowTopBtn(true);
-    } else {
-      setShowTopBtn(false);
-    }
-  };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setShowTopBtn(window.scrollY > 300);
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
+
 
   const fetchMorePosts = async () => {
     if (!hasMore) return;
