@@ -40,6 +40,18 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
     return <div>No posts available</div>;
   }
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      if (!router.query.slug) return;
+      const newPosts = await GetCategoryPost(router.query.slug, 10);
+      setPosts(newPosts.edges);
+      setHasMore(newPosts.pageInfo.hasNextPage);
+      setAfterCursor(newPosts.pageInfo.endCursor);
+    };
+
+    fetchPosts();
+  }, [router.query.slug]);
+
   const fetchMorePosts = async () => {
     if (!hasMore) return;
 

@@ -15,7 +15,7 @@ const PostWidget2 = () => {
   return (
     <div className="bg-white rounded-lg p-8 pb-12 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b-4 pb-1 text-shadow-md">
-        {"Newest Media"}
+        Newest Podcasts
       </h3>
       {latestPosts.map((post) => (
         <div key={post.title} className="flex items-center w-full mb-4">
