@@ -1,6 +1,6 @@
 // components/LoadingIndicator.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function LoadingIndicator({ onComplete }) {
   const [progress, setProgress] = useState(0);

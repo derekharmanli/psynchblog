@@ -1,11 +1,16 @@
-import { request, gql } from 'graphql-request';
+import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 const GetCategoryPost = async (slug, pageSize = 10, afterCursor = null) => {
   const query = gql`
     query GetCategoryPosts($slug: String!, $pageSize: Int!, $after: String) {
-      postsConnection(where: { categories_some: { slug: $slug } }, first: $pageSize, after: $after, orderBy: createdAt_DESC) {
+      postsConnection(
+        where: { categories_some: { slug: $slug } }
+        first: $pageSize
+        after: $after
+        orderBy: createdAt_DESC
+      ) {
         edges {
           cursor
           node {

@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { useRouter } from 'next/router';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useRouter } from "next/router";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-import { GetCategories, GetCategoryPost } from '../../services';
-import { PostCard, Categories, Loader, Layout } from '../../components';
-import Head from 'next/head';
+import { GetCategories, GetCategoryPost } from "../../services";
+import { PostCard, Categories, Loader, Layout } from "../../components";
+import Head from "next/head";
 const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
   const router = useRouter();
   const [posts, setPosts] = useState(initialPosts.edges);
   const [hasMore, setHasMore] = useState(initialPosts.pageInfo.hasNextPage);
-  const [afterCursor, setAfterCursor] = useState(initialPosts.pageInfo.endCursor);
+  const [afterCursor, setAfterCursor] = useState(
+    initialPosts.pageInfo.endCursor
+  );
   const [showTopBtn, setShowTopBtn] = useState(false);
- 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +27,6 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   if (router.isFallback) {
     return <Loader />;
@@ -47,7 +47,7 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
   const goToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -55,8 +55,8 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
     <Layout>
       <Head>
         <title>Psynch Podcasts</title>
-        </Head>
-        <div className="container mx-auto px-10 mb-8">
+      </Head>
+      <div className="container mx-auto px-10 mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="col-span-1 lg:col-span-8">
             <InfiniteScroll
@@ -79,7 +79,10 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
           </div>
         </div>
         {showTopBtn && (
-          <button onClick={goToTop} className="fixed bottom-10 left-10 cursor-pointer text-white bg-pink-600 hover:bg-indigo-900 transition duration-500 ease-in-out h-12 w-32 rounded-full flex items-center justify-center text-lg font-semibold z-50">
+          <button
+            onClick={goToTop}
+            className="fixed bottom-10 left-10 cursor-pointer text-white bg-pink-600 hover:bg-indigo-900 transition duration-500 ease-in-out h-12 w-32 rounded-full flex items-center justify-center text-lg font-semibold z-50"
+          >
             ↑ Go to Top
           </button>
         )}

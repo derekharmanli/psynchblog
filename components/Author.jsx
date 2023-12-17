@@ -1,12 +1,12 @@
-import React from 'react';
-import parse from 'html-react-parser'
+import React from "react";
+import parse from "html-react-parser";
 
 const Author = ({ author }) => {
   // Function to ensure the URL starts with http:// or https://
   const ensureAbsoluteUrl = (html) => {
     const urlPattern = /href="([^"]*)"/g;
     return html.replace(urlPattern, (match, url) => {
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      if (!url.startsWith("http://") && !url.startsWith("https://")) {
         return match.replace(url, `https://${url}`);
       }
       return match;

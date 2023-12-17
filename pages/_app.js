@@ -1,16 +1,15 @@
 // pages/_app.js
-import React from 'react';
-import '../styles/globals.css';
-import Head from 'next/head';
+import React from "react";
+import "../styles/globals.css";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
-
   return (
     <div>
-    <Head>
+      <Head>
         <title>Psynch</title>
       </Head>
-   <Component {...pageProps} />
-   </div>
+      <Component {...pageProps} />
+    </div>
   );
 }

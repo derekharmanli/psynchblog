@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
-import { GetCategories } from '../services';
+import { GetCategories } from "../services";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -14,12 +14,20 @@ const Categories = () => {
 
   return (
     <div className="bg-white rounded-lg p-8 pb-12 mb-8">
-      <Link href={'/'}>
-       <h3 className="text-xl mb-8 font-semibold border-b-4 pb-1 text-shadow-md">Categories</h3>
+      <Link href={"/"}>
+        <h3 className="text-xl mb-8 font-semibold border-b-4 pb-1 text-shadow-md">
+          Categories
+        </h3>
       </Link>
       {categories.map((category, index) => (
         <Link key={index} href={`/category/${category.slug}`}>
-          <div className={`cursor-pointer flex items-center ${(index === categories.length - 1) ? 'pb-3 mb-3' : 'border-b pb-3 mb-3'}`}>
+          <div
+            className={`cursor-pointer flex items-center ${
+              index === categories.length - 1
+                ? "pb-3 mb-3"
+                : "border-b pb-3 mb-3"
+            }`}
+          >
             {category.picture && (
               <img
                 src={category.picture.url}

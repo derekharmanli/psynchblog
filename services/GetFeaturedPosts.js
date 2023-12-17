@@ -1,4 +1,4 @@
-import { request, gql } from 'graphql-request';
+import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
@@ -43,7 +43,10 @@ const GetFeaturedPosts = async () => {
     allFeaturedPosts = [...allFeaturedPosts, ...featuredPosts];
 
     hasMorePages = featuredPosts.length === pageSize; // Adjust based on your API response
-    afterCursor = featuredPosts.length > 0 ? featuredPosts[featuredPosts.length - 1].createdAt : null; // Assuming 'createdAt' is a unique field
+    afterCursor =
+      featuredPosts.length > 0
+        ? featuredPosts[featuredPosts.length - 1].createdAt
+        : null; // Assuming 'createdAt' is a unique field
   }
 
   return allFeaturedPosts;

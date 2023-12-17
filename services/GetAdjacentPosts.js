@@ -1,14 +1,14 @@
-import {request, gql} from 'graphql-request';
+import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 const GetAdjacentPosts = async (createdAt, slug) => {
   const query = gql`
-    query GetAdjacentPosts($createdAt: DateTime!,$slug:String!) {
-      next:posts(
+    query GetAdjacentPosts($createdAt: DateTime!, $slug: String!) {
+      next: posts(
         first: 1
         orderBy: createdAt_ASC
-        where: {slug_not: $slug, AND: {createdAt_gte: $createdAt}}
+        where: { slug_not: $slug, AND: { createdAt_gte: $createdAt } }
       ) {
         title
         featuredImage {
@@ -17,10 +17,10 @@ const GetAdjacentPosts = async (createdAt, slug) => {
         createdAt
         slug
       }
-      previous:posts(
+      previous: posts(
         first: 1
         orderBy: createdAt_DESC
-        where: {slug_not: $slug, AND: {createdAt_lte: $createdAt}}
+        where: { slug_not: $slug, AND: { createdAt_lte: $createdAt } }
       ) {
         title
         featuredImage {
@@ -37,4 +37,4 @@ const GetAdjacentPosts = async (createdAt, slug) => {
   return { next: result.next[0], previous: result.previous[0] };
 };
 
-export default GetAdjacentPosts
+export default GetAdjacentPosts;

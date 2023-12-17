@@ -1,6 +1,6 @@
 // components/LandingPage.js
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function LandingPage() {
   const [windowWidth, setWindowWidth] = useState(0);
@@ -13,13 +13,13 @@ export default function LandingPage() {
       setWindowHeight(window.innerHeight);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     setWindowWidth(window.innerWidth);
     setWindowHeight(window.innerHeight);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -27,7 +27,7 @@ export default function LandingPage() {
   const logoSize = Math.min(0.8 * windowWidth, 0.8 * windowHeight, 700);
   const textSize = Math.min(0.05 * windowWidth + 40, 200);
   const handlePlayButtonClick = () => {
-    const audio = new Audio('/cinch.mp3');
+    const audio = new Audio("/cinch.mp3");
     if (!isPlaying) {
       audio.play();
     } else {
@@ -42,21 +42,24 @@ export default function LandingPage() {
         alt="Psynch Logo"
         width={logoSize}
         height={logoSize}
-        style={{ marginBottom: '1rem' }}
+        style={{ marginBottom: "1rem" }}
       />
-      <h1 className="text-white font-semibold text-shadow mb-2" style={{ fontSize: `${textSize}px`,   position: 'relative' }}>
+      <h1
+        className="text-white font-semibold text-shadow mb-2"
+        style={{ fontSize: `${textSize}px`, position: "relative" }}
+      >
         Psynch
         <button className="play-button" onClick={handlePlayButtonClick}>
-        <img
+          <img
             src="/speaker_white.png"
             alt=""
             width={0.08 * logoSize}
             height={0.08 * logoSize}
-            style={{ position: 'absolute', top: '1rem', right: '-2rem' }}
+            style={{ position: "absolute", top: "1rem", right: "-2rem" }}
           />
-      </button>
+        </button>
       </h1>
-      
+
       <div className="flex flex-row">
         <Link className="text-white text-xl" href="/podcasts">
           Podcasts
@@ -64,7 +67,16 @@ export default function LandingPage() {
       </div>
 
       <div className="status-bar">
-        <span>&#169; Psynch. All Rights Reserved. Courtesy of <a href="https://www.linkedin.com/in/derekharmanli" target="_blank" rel="noopener noreferrer">Derek Harmanli</a></span>
+        <span>
+          &#169; Psynch. All Rights Reserved. Courtesy of{" "}
+          <a
+            href="https://www.linkedin.com/in/derekharmanli"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Derek Harmanli
+          </a>
+        </span>
       </div>
     </div>
   );
