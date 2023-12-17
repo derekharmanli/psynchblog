@@ -18,6 +18,14 @@ const PostDetails = ({ post }) => {
   const router = useRouter();
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   if (router.isFallback) {
     return <Loader />;
   }
@@ -32,14 +40,6 @@ const PostDetails = ({ post }) => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const goToTop = () => {
     window.scrollTo({
       top: 0,
