@@ -74,8 +74,8 @@ export default function Home() {
 
       <div className="fixed bottom-0 left-0 right-0 bg-pink-600 text-white text-center py-2">
         <span>
-          &#169; Psynch 2023. {`${isSmallScreen ? "" : "All Rights Reserved"}`}{" "}
-          Courtesy of{" "}
+          &#169; Psynch 2023.{" "}
+          {`${isSmallScreen ? "" : "All Rights Reserved. "}`} Courtesy of{" "}
           <a
             href="https://www.linkedin.com/in/derekharmanli"
             target="_blank"
