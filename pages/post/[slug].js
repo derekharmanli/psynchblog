@@ -73,7 +73,7 @@ const PostDetails = ({ post }) => {
       <div
         className={`transition-transform duration-300 flex flex-col justify-center ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        } lg:col-span-4 col-span-1 fixed right-0 top-0 h-full shadow-lg `}
+        } lg:col-span-4 col-span-1 fixed right-0 top-0 h-full`}
       >
         <div className="text-xl bg-pink-600 p-2 rounded-full text-white text-center font-semibold mt-2 mb-4 mr-8">
           Sidebar
