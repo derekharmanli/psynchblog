@@ -33,13 +33,6 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (router.isFallback) {
-    return <Loader />;
-  }
-  if (!initialPosts || !initialPosts.edges) {
-    return <div>No posts available</div>;
-  }
-
   useEffect(() => {
     const fetchPosts = async () => {
       if (!router.query.slug) return;
@@ -52,6 +45,12 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
     fetchPosts();
   }, [router.query.slug]);
 
+  if (router.isFallback) {
+    return <Loader />;
+  }
+  if (!initialPosts || !initialPosts.edges) {
+    return <div>No posts available</div>;
+  }
   const fetchMorePosts = async () => {
     if (!hasMore) return;
 

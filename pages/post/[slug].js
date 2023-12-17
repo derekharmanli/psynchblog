@@ -16,12 +16,12 @@ import { AdjacentPosts } from "../../public/sections/index";
 
 const PostDetails = ({ post }) => {
   const router = useRouter();
-
+  const [showTopBtn, setShowTopBtn] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   if (router.isFallback) {
     return <Loader />;
   }
-  const [showTopBtn, setShowTopBtn] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const handleScroll = () => {
     if (window.scrollY > 300) {
       setShowTopBtn(true);
