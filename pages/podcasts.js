@@ -63,7 +63,7 @@ export default function Podcasts({ initialPosts }) {
       <div className="container mx-auto px-10 mb-8">
         <FeaturedPosts />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-12 col-span-1">
+          <div className="lg:col-span-11 col-span-1">
             <InfiniteScroll
               dataLength={posts.length}
               next={fetchMorePosts}
@@ -91,9 +91,9 @@ export default function Podcasts({ initialPosts }) {
 
       {/* Sidebar */}
       <div
-        className={`transition-transform duration-300 flex flex-col justify-center ${
+        className={`transition-transform duration-300 flex flex-col justify-end ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        } lg:col-span-4 col-span-1 fixed right-0 top-0 h-full`}
+        } lg:col-span-4 col-span-1 fixed right-0 top-0 h-full py-4`}
       >
         <div className="text-xl bg-pink-600 p-2 rounded-full text-white text-center font-semibold mt-2 mb-4 mr-8">
           Sidebar

@@ -123,7 +123,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #111822;
+  background-color: #131924;
   justify-content: center;
   height: 100vh;
 }
@@ -131,7 +131,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #111822;
+  background-color: #131924;
   padding-top: 50px;
   height: 100vh;
 }
