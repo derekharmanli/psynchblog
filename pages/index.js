@@ -44,7 +44,7 @@ export default function Home() {
     >
       <div className="fixed top-0 left-0 right-0 bg-pink-600 text-white text-center py-2"></div>
       <img
-        src="/PBrain(Transparent)_cropped.gif"
+        src="/PBrain(TransparentVersion)_cropped.gif"
         alt="Psynch Logo"
         width={logoSize}
         height={logoSize}
