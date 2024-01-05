@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { GetLatestPosts } from "../services";
 
-const PostWidget2 = () => {
+const LatestWidget = () => {
   const [latestPosts, setLatestPosts] = useState([]);
   useEffect(() => {
     GetLatestPosts().then((result) => {
@@ -48,4 +48,4 @@ const PostWidget2 = () => {
   );
 };
 
-export default PostWidget2;
+export default LatestWidget;

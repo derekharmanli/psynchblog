@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PostCard, Sidebar, Loader, Layout } from "../components";
+import { PostCard, Sidebar, GoToTop, Loader, Layout } from "../components";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Head from "next/head";
 import { FeaturedPosts } from "../public/sections/index";
@@ -11,22 +11,6 @@ export default function Podcasts({ initialPosts }) {
   const [afterCursor, setAfterCursor] = useState(
     initialPosts.pageInfo.endCursor
   );
-  const [showTopBtn, setShowTopBtn] = useState(false);
-
-  const handleScroll = () => {
-    if (window.scrollY > 300) {
-      setShowTopBtn(true);
-    } else {
-      setShowTopBtn(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const fetchMorePosts = async () => {
     if (!hasMore) return;
@@ -35,13 +19,6 @@ export default function Podcasts({ initialPosts }) {
     setPosts([...posts, ...newPosts.edges]);
     setHasMore(newPosts.pageInfo.hasNextPage);
     setAfterCursor(newPosts.pageInfo.endCursor);
-  };
-
-  const goToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   return (
@@ -69,18 +46,7 @@ export default function Podcasts({ initialPosts }) {
         </div>
       </div>
       <Sidebar location="podcasts" />
-      {showTopBtn && (
-        <button
-          onClick={goToTop}
-          className="fixed bottom-10 left-10 cursor-pointer
-                     text-white bg-pink-600 hover:bg-indigo-900 
-                     transition duration-500 ease-in-out 
-                     h-12 w-32 rounded-full flex items-center justify-center 
-                     text-lg font-semibold z-50"
-        >
-          ↑ Go to Top
-        </button>
-      )}
+      <GoToTop />
     </Layout>
   );
 }

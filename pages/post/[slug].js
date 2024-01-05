@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import {
   PostDetail,
   Sidebar,
+  GoToTop,
   Author,
   Comments,
   CommentsForm,
@@ -15,33 +16,11 @@ import { AdjacentPosts } from "../../public/sections/index";
 
 const PostDetails = ({ post }) => {
   const router = useRouter();
-  const [showTopBtn, setShowTopBtn] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   if (router.isFallback) {
     return <Loader />;
   }
 
-  const handleScroll = () => {
-    if (window.scrollY > 300) {
-      setShowTopBtn(true);
-    } else {
-      setShowTopBtn(false);
-    }
-  };
-
-  const goToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
   return (
     <Layout>
       <div className="container mx-auto px-10 mb-8">
@@ -56,18 +35,7 @@ const PostDetails = ({ post }) => {
         </div>
       </div>
       <Sidebar location={"postslug"} />
-      {showTopBtn && (
-        <button
-          onClick={goToTop}
-          className="fixed bottom-10 left-10 cursor-pointer
-                     text-white bg-pink-600 hover:bg-indigo-900 
-                     transition duration-500 ease-in-out 
-                     h-12 w-32 rounded-full flex items-center justify-center 
-                     text-lg font-semibold z-50"
-        >
-          ↑ Go to Top
-        </button>
-      )}
+      <GoToTop />
     </Layout>
   );
 };

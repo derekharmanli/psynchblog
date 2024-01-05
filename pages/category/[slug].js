@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { GetCategories, GetCategoryPost } from "../../services";
-import { PostCard, Sidebar, Loader, Layout } from "../../components";
+import { PostCard, Sidebar, GoToTop, Loader, Layout } from "../../components";
 import Head from "next/head";
 const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
   const router = useRouter();
@@ -13,20 +13,6 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
   const [afterCursor, setAfterCursor] = useState(
     initialPosts.pageInfo.endCursor
   );
-  const [showTopBtn, setShowTopBtn] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowTopBtn(true);
-      } else {
-        setShowTopBtn(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -55,13 +41,6 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
     setAfterCursor(newPosts.pageInfo.endCursor);
   };
 
-  const goToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <Layout>
       <Head>
@@ -85,14 +64,7 @@ const CategoryPost = ({ initialPosts = { edges: [], pageInfo: {} } }) => {
           </div>
         </div>
         <Sidebar location="categoryslug" />
-        {showTopBtn && (
-          <button
-            onClick={goToTop}
-            className="fixed bottom-10 left-10 cursor-pointer text-white bg-pink-600 hover:bg-indigo-900 transition duration-500 ease-in-out h-12 w-32 rounded-full flex items-center justify-center text-lg font-semibold z-50"
-          >
-            ↑ Go to Top
-          </button>
-        )}
+        <GoToTop />
       </div>
     </Layout>
   );
