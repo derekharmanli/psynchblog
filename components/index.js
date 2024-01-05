@@ -3,6 +3,7 @@ export { default as PostDetail } from "./PostDetail";
 export { default as Layout } from "./Layout";
 export { default as Categories } from "./Categories";
 export { default as Author } from "./Author";
+export { default as Sidebar } from "./Sidebar";
 export { default as PostWidget } from "./PostWidget";
 export { default as PostWidget2 } from "./PostWidget2";
 export { default as AdjacentPostCard } from "./AdjacentPostCard";

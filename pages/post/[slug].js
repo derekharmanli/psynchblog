@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 
 import {
   PostDetail,
-  Categories,
-  PostWidget,
+  Sidebar,
   Author,
   Comments,
   CommentsForm,
@@ -17,7 +16,6 @@ import { AdjacentPosts } from "../../public/sections/index";
 const PostDetails = ({ post }) => {
   const router = useRouter();
   const [showTopBtn, setShowTopBtn] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -37,9 +35,7 @@ const PostDetails = ({ post }) => {
       setShowTopBtn(false);
     }
   };
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+
   const goToTop = () => {
     window.scrollTo({
       top: 0,
@@ -59,34 +55,7 @@ const PostDetails = ({ post }) => {
           </div>
         </div>
       </div>
-      {/* Toggle Button for Sidebar */}
-      <button
-        onClick={toggleSidebar}
-        className="fixed right-10 top-1/2 transform -translate-y-1/2 
-                     z-50 bg-pink-600 hover:bg-indigo-900 text-white font-bold 
-                     py-2 px-4 rounded"
-      >
-        {isSidebarOpen ? "→" : "←"}
-      </button>
-
-      {/* Sidebar */}
-      <div
-        className={`transition-transform duration-300 flex flex-col justify-center ${
-          isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        } lg:col-span-4 col-span-1 fixed right-0 top-0 h-full`}
-      >
-        <div className="text-xl bg-pink-600 p-2 rounded-full text-white text-center font-semibold mt-2 mb-4 mr-8">
-          Sidebar
-        </div>
-        <div className="lg:sticky relative top-8">
-          <div className="embossed mb-4 mr-8 p-4">
-            <PostWidget />
-          </div>
-          <div className="embossed mr-8">
-            <Categories />
-          </div>
-        </div>
-      </div>
+      <Sidebar location={"postslug"} />
       {showTopBtn && (
         <button
           onClick={goToTop}

@@ -28,7 +28,7 @@ const Header = () => {
                 className="text-shadow cursor-pointer font-bold text-6xl text-white"
                 title="Pronounced like cinch"
               >
-                Psynch Podcasts
+                Psynch Podcast
               </span>
             </Link>
           </div>
@@ -44,7 +44,7 @@ const Header = () => {
                 <div className="text-white font-semibold">Disclaimer</div>
               </Link>
               <Link href="/">
-                <div className="text-white font-semibold">Main Screen</div>
+                <div className="text-white font-semibold">Home</div>
               </Link>
             </div>
           </div>
