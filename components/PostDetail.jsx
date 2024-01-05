@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import ReactAudioPlayer from "react-audio-player";
 import parse from "html-react-parser";
@@ -6,6 +6,7 @@ import moment from "moment";
 import Head from "next/head";
 const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
   const [dontShowAgain, setDontShowAgain] = useState(false);
+  const modalRef = useRef(); // Create a ref for the modal
 
   const handleClose = () => {
     if (dontShowAgain) {
@@ -13,6 +14,23 @@ const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
     }
     onClose();
   };
+
+  // Handler to close the modal if clicked outside
+  const handleOutsideClick = (event) => {
+    // Check if the clicked area is not the modal dialog
+    if (event.target.classList.contains("modal-backdrop")) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    // Add when the component mounts
+    document.addEventListener("mousedown", handleOutsideClick);
+    // Remove when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []); // Empty dependency array means it will run once on mount and unmount
 
   if (!isOpen) return null;
 
@@ -38,8 +56,8 @@ const Modal = ({ isOpen, onClose, onDontShowAgain }) => {
         </p>
         <p className="mt-2 font-semibold">
           To make this modal pop up again, even if you select the do not open
-          again below, press Ctrl-M on PC/Mac and/or double tap the screen on
-          your mobile device
+          again below, press Ctrl-M on PC/Mac and/or tap with three fingers on
+          the screen on your mobile device
         </p>
         <div className="mt-4">
           <input
@@ -65,7 +83,6 @@ const PostDetail = ({ post }) => {
   const [showMedia, setShowMedia] = useState(false);
   const [showPoints, setShowPoints] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [lastTap, setLastTap] = useState(null);
 
   useEffect(() => {
     checkModalSetting();
@@ -74,7 +91,7 @@ const PostDetail = ({ post }) => {
     return () => {
       cleanupEventListeners();
     };
-  }, [post, lastTap]);
+  }, [post]);
 
   const checkModalSetting = () => {
     const modalSetting = localStorage.getItem("hideModal");
@@ -83,12 +100,20 @@ const PostDetail = ({ post }) => {
 
   const setupEventListeners = () => {
     window.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("touchend", handleDoubleTap);
+    document.addEventListener("touchstart", handleThreeFingerTap, false);
   };
 
   const cleanupEventListeners = () => {
     window.removeEventListener("keydown", handleKeyDown);
-    document.removeEventListener("touchend", handleDoubleTap);
+    document.removeEventListener("touchstart", handleThreeFingerTap, false);
+  };
+
+  const handleThreeFingerTap = (event) => {
+    if (event.touches.length === 3) {
+      // Check if three fingers are touching the screen
+      setIsModalOpen(true);
+      localStorage.setItem("hideModal", "false");
+    }
   };
 
   const handleKeyDown = (event) => {
@@ -96,15 +121,6 @@ const PostDetail = ({ post }) => {
       setIsModalOpen(true);
       localStorage.setItem("hideModal", "false");
     }
-  };
-  const handleDoubleTap = () => {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-    if (lastTap && tapLength < 500 && tapLength > 0) {
-      setIsModalOpen(true);
-      localStorage.setItem("hideModal", "false");
-    }
-    setLastTap(currentTime);
   };
 
   const handleDontShowAgain = () => {
