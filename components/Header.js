@@ -44,7 +44,7 @@ const Header = () => {
                 <div className="text-white font-semibold">Disclaimer</div>
               </Link>
               <Link href="/">
-                <div className="text-white font-semibold">Home</div>
+                <div className="text-white font-semibold">Landing</div>
               </Link>
             </div>
           </div>
