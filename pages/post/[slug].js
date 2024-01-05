@@ -14,7 +14,7 @@ import {
 import { GetPosts, GetPostDetails } from "../../services";
 import { AdjacentPosts } from "../../public/sections/index";
 
-const PostDetails = ({ post }) => {
+const Postslug = ({ post }) => {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -39,7 +39,7 @@ const PostDetails = ({ post }) => {
     </Layout>
   );
 };
-export default PostDetails;
+export default Postslug;
 
 // Fetch data at build time
 export async function getStaticProps({ params }) {

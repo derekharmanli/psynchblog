@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { GetRecentPosts, GetSimilarPosts } from "../services";
 
-const PostWidget = ({ categories, slug }) => {
+const RecentRelatedWidget = ({ categories, slug }) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   useEffect(() => {
     if (slug) {
@@ -52,4 +52,4 @@ const PostWidget = ({ categories, slug }) => {
   );
 };
 
-export default PostWidget;
+export default RecentRelatedWidget;

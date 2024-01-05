@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-import { PostWidget, LatestWidget, Categories } from "../components";
+import {
+  RecentRelatedWidget,
+  LatestWidget,
+  CategoryWidget,
+} from "../components";
 const Sidebar = ({ location }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
@@ -30,7 +34,7 @@ const Sidebar = ({ location }) => {
             <></>
           ) : (
             <div className="embossed mb-4 mr-8 p-4">
-              <PostWidget />
+              <RecentRelatedWidget />
             </div>
           )}
           {location == "podcasts" ? (
@@ -41,7 +45,7 @@ const Sidebar = ({ location }) => {
             <></>
           )}
           <div className="embossed mr-8">
-            <Categories />
+            <CategoryWidget />
           </div>
         </div>
       </div>
